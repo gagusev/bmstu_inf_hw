@@ -4,6 +4,12 @@
 #include <math.h>
 #include <stdlib.h>
 
+#define STR_BIN_MAXLEN 64
+#define STR_DEC_MAXLEN 32
+#define STR_DECS_MAXLEN 1028
+#define STR_NAME_MAXLEN 32
+#define INT_ARRAY_MAXLEN 128
+
 void throw_help()
 {
     puts("\nSo here are the examples of usage:\n");
@@ -26,7 +32,7 @@ int bin_to_dec(char bin[])
 int dec_to_bin(int dec)
 {
     int bin = 0;
-    char a[32];
+    char a[STR_BIN_MAXLEN];
     int size = 0;
     for (int i = 0; dec > 0; ++i)
     {
@@ -117,7 +123,7 @@ int read_line(char name[], int nums[])
         if (found)
         {
             i++;
-            char num[32];
+            char num[STR_DEC_MAXLEN];
             int num_size = 0;
             while (line[i] != '\n')
             {
@@ -159,11 +165,11 @@ void save(char line[], char name[])
         exit(1);
     }
 
-    char new_line[1028];
-    char num[64];
+    char new_line[STR_DECS_MAXLEN];
+    char num[STR_DEC_MAXLEN];
     int num_counter = 0;
 
-    int set[64];
+    int set[INT_ARRAY_MAXLEN];
     int set_size = 0;
 
     int was_modified = 0;
@@ -183,16 +189,18 @@ void save(char line[], char name[])
             {
                 set[set_size] = dec;
                 set_size++;
-                char strdec[64];
+                char strdec[STR_DEC_MAXLEN];
                 sprintf(strdec, "%d ", bin_to_dec(num));
                 strcat(new_line, strdec);
                 num_counter = 0;
                 num[0] = '\0';
-                // strdec[0] = '\0';
+                strdec[0] = '\0';
             }
             else
             {
                 was_modified = 1;
+                num[0] = '\0';
+                num_counter = 0;
             }
         }
         else
@@ -244,7 +252,7 @@ void show(char name[], char method[])
         while ((read = getline(&line, &len, fp)) != -1)
         {
             int i = 0;
-            char name_temp[32];
+            char name_temp[STR_NAME_MAXLEN];
             while (line[i] != ' ')
             {
                 name_temp[i] = line[i];
@@ -258,7 +266,7 @@ void show(char name[], char method[])
     }
     else
     {
-        int nums[128] = {};
+        int nums[INT_ARRAY_MAXLEN] = {};
         int status = read_line(name, nums);
 
         if (status == 0)
@@ -267,13 +275,13 @@ void show(char name[], char method[])
             exit(1);
         }
 
-        char num_line[1028];
+        char num_line[STR_DECS_MAXLEN];
 
         if (!strcmp(method, "DEC"))
         {
             for (int i = 0; i < status; ++i)
             {
-                char strdec[32];
+                char strdec[STR_DEC_MAXLEN];
                 sprintf(strdec, "%d ", nums[i]);
                 strcat(num_line, strdec);
                 strdec[0] = '\0';
@@ -283,7 +291,7 @@ void show(char name[], char method[])
         {
             for (int i = 0; i < status; ++i)
             {
-                char strdec[32];
+                char strdec[STR_DEC_MAXLEN];
                 sprintf(strdec, "%d ", dec_to_bin(nums[i]));
                 strcat(num_line, strdec);
                 strdec[0] = '\0';
@@ -302,8 +310,8 @@ void show(char name[], char method[])
 
 void unite(char name_a[], char name_b[])
 {
-    int nums_a[128] = {};
-    int nums_b[128] = {};
+    int nums_a[INT_ARRAY_MAXLEN] = {};
+    int nums_b[INT_ARRAY_MAXLEN] = {};
     int status_a = read_line(name_a, nums_a);
     int status_b = read_line(name_b, nums_b);
     if (status_a == 0)
@@ -316,7 +324,7 @@ void unite(char name_a[], char name_b[])
         printf("ERROR: Set '%s' not found in the database", name_b);
         exit(1);
     }
-    int nums_unite[128];
+    int nums_unite[INT_ARRAY_MAXLEN];
     int size = 0;
     for (int i = 0; i < status_a; ++i)
     {
@@ -334,10 +342,10 @@ void unite(char name_a[], char name_b[])
             size++;
         }
     }
-    char num_line[1028];
+    char num_line[STR_DECS_MAXLEN];
     for (int i = 0; i < size; ++i)
     {
-        char strdec[32];
+        char strdec[STR_DEC_MAXLEN];
         sprintf(strdec, "%d ", nums_unite[i]);
         strcat(num_line, strdec);
         strdec[0] = '\0';
