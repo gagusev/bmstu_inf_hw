@@ -5,17 +5,17 @@
 #include <stdlib.h>
 
 void throw_help() {
-    printf("\nSo here are the examples of usage:\n\n");
-    printf("SAVE <your set> AS <name of set> – Will write your set to the database;\n");
-    printf("SHOW <name of set> AS [BIN/DEC] – Will print out your set from the database;\n");
-    printf("UNITE <name of set> WITH <name of set> – Will unite two sets from the database;\n");
-    printf("HELP or -h or -help – Will show this message again;\n\n");
+    puts("\nSo here are the examples of usage:\n");
+    puts("SAVE <your set> AS <name of set> – Will write your set to the database;");
+    puts("SHOW <name of set> AS [BIN/DEC] – Will print out your set from the database;");
+    puts("UNITE <name of set> WITH <name of set> – Will unite two sets from the database;");
+    puts("HELP or -h or -help – Will show this message again;\n");
 }
 
 int bin_to_dec(char bin[]) {
     int dec = 0;
     for (int j = strlen(bin)-1; j >= 0; --j) {
-        dec += (bin[j] - 48) * pow(2, strlen(bin)-j-1);
+        dec += (bin[j] - '0') * pow(2, strlen(bin)-j-1);
     }
     return dec;
 }
@@ -76,7 +76,7 @@ int read_line(char name[], int nums[]) {
     FILE *fp;
     fp = fopen("db.txt", "r");
     if (fp == NULL) {
-        printf("ERROR: File writing operation failed\n");
+        puts("ERROR: File writing operation failed");
         exit(1);
     }
     char *line = NULL;
@@ -122,12 +122,12 @@ int read_line(char name[], int nums[]) {
 void save(char line[], char name[]) {
 
     if (!strcmp(name, "ALL")) {
-        printf("ERROR: 'ALL' is a preserved name\n");
+        puts("ERROR: 'ALL' is a preserved name");
         exit(1);
     }
 
     if (set_exists(name)) {
-        printf("ERROR: Set with such name already exists in the database\n");
+        puts("ERROR: Set with such name already exists in the database");
         exit(1);
     }
 
@@ -162,13 +162,13 @@ void save(char line[], char name[]) {
         } else {
             num[num_counter] = line[i];
             num_counter++;
-            printf("ERROR: Non-binary symbols found in the provided arguments");
+            puts("ERROR: Non-binary symbols found in the provided arguments");
             exit(1);
         }
     }
 
     if (was_modified) {
-        printf("Set was modified due to it having dublicated items:\n");
+        puts("Set was modified due to it having dublicated items:");
         printf("%s: { %s};\n", name, new_line);
     }
 
@@ -176,7 +176,7 @@ void save(char line[], char name[]) {
     fp = fopen("db.txt", "a+");
     
     if (fp == NULL) {
-        printf("ERROR: File writing operation failed\n");
+        puts("ERROR: File writing operation failed");
         exit(1);
     }
     
@@ -184,7 +184,7 @@ void save(char line[], char name[]) {
     fprintf(fp, "%s\n", new_line);
     
     fclose(fp);
-    printf("Set succsessfully written to the database!\n");
+    puts("Set succsessfully written to the database!");
     }
 
     void show(char name[], char method[]) {
@@ -192,7 +192,7 @@ void save(char line[], char name[]) {
                 FILE *fp;
                 fp = fopen("db.txt", "r");
                 if (fp == NULL) {
-                    printf("ERROR: File writing operation failed\n");
+                    puts("ERROR: File writing operation failed");
                     exit(1);
                 }
                 char *line = NULL;
@@ -216,7 +216,7 @@ void save(char line[], char name[]) {
             int status = read_line(name, nums);
 
             if (status == 0) {
-                printf("ERROR: Set not found in the database");
+                puts("ERROR: Set not found in the database");
                 exit(1);
             }
 
@@ -237,7 +237,7 @@ void save(char line[], char name[]) {
                     strdec[0] = '\0';
                 }
             } else {
-                printf("ERROR: Bad syntax\n");
+                puts("ERROR: Bad syntax");
                 throw_help();
                 exit(1);
             }
@@ -289,36 +289,36 @@ int main(int argc,char* argv[]) {
     } else if (!strcmp(argv[1], "HELP") || !strcmp(argv[1], "-h") || !strcmp(argv[1], "-help")) {
             throw_help();
     } else if (argc > 1 && argc < 5) {
-        printf("ERROR: No command is corresponding this pattern\n");
+        puts("ERROR: No command is corresponding this pattern");
         throw_help();
     } else if (argc == 5) {
         if (!strcmp(argv[1], "SAVE")) {
             if (!strcmp(argv[3], "AS")) {
                 save(argv[2], argv[4]);
             } else {
-                printf("ERROR: Bad syntax\n");
+                puts("ERROR: Bad syntax");
                 throw_help();
             }
         } else if (!strcmp(argv[1], "SHOW")) {
             if (!strcmp(argv[3], "AS")) {
                 show(argv[2], argv[4]);
             } else {
-                printf("ERROR: Bad syntax\n");
+                puts("ERROR: Bad syntax");
                 throw_help();
             }
         } else if (!strcmp(argv[1], "UNITE")) {
             if (!strcmp(argv[3], "WITH")) {
                 unite(argv[2], argv[4]);
             } else {
-                printf("ERROR: Bad syntax\n");
+                puts("ERROR: Bad syntax");
                 throw_help();
             }
         } else {
-            printf("ERROR: Unknown command provided\n");
+            puts("ERROR: Unknown command provided");
             throw_help();
         }
     } else {
-        printf("ERROR: Too many arguments provided\n");
+        puts("ERROR: Too many arguments provided");
         throw_help();
     }
     return 0;
