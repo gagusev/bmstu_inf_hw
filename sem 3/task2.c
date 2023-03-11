@@ -1,24 +1,15 @@
 #include <stdio.h>
 
-void exclude(char line[], char to_rem[], char out[]) {
-    int i, j, c_out = 0;
-    while (line[i] != '\0') {
-        int found = 0;
-        while (to_rem[j] != '\0') {
-            char c = to_rem[j];
-            if (line[i] == c) {
-                found = 1;
-                break;
+void exclude(char line[], char to_rem[]) {
+    for (int i = 0; line[i] != '\0'; ++i) {
+        for (int j = 0; to_rem[j] != '\0'; ++j) {
+            if (line[i] == to_rem[j]) {
+                for (int k = i; line[k] != '\0'; ++k) {
+                    line[k] = line[k+1];
+                }
             }
-            j++;
         }
-        if (!found) {
-            out[c_out] = line[i];
-            c_out++;
-        }
-        i++;
     }
-    out[c_out] = '\0';
 }
 
 int main (void) {
@@ -49,8 +40,8 @@ int main (void) {
         }
     }
 
-    exclude(line, to_rem, out);
-    printf("%s\n", out);
+    exclude(line, to_rem);
+    printf("%s\n", line);
 
     return 0;
 }

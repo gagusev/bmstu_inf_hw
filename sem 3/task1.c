@@ -1,5 +1,39 @@
 #include <stdio.h>
 
+void fill(char line_i[], char line_o[]) {
+    int count_o = 0;
+    char sym, last_sym;
+
+    for (int i = 0; line_i[i] != '\0'; ++i) {
+        int start = line_i[i-1];
+        int dash = line_i[i];
+        int stop = line_i[i+1];
+        if (dash == '-') {
+            if (i == 0 || stop == '\0') {
+                line_o[count_o++] = '-';
+            } else if (start < stop) {
+                if (last_sym != start) {
+                    line_o[count_o++] = start;
+                }
+                for (sym = start + 1; sym <= stop; ++sym) {
+                    line_o[count_o++] = sym;
+                }
+                last_sym = sym - 1;
+            }
+            else {
+                if (last_sym != start) {
+                    line_o[count_o++] = start;
+                }
+                for (sym = start - 1; sym >= stop; --sym) {
+                    line_o[count_o++] = sym;
+                }
+                last_sym = sym - 1;
+            }
+        }
+    }
+    line_o[count_o] = '\0';
+}
+
 int main (void) {
     char line_i[256];
     int count_i = 0;
@@ -17,41 +51,8 @@ int main (void) {
         }
     }
 
-    for (int i=0; i < count_i-2; ++i) {
-        if (line_i[i+1] == '-') {
-            /* ???????????
-            if (i-1 >= 0) {
-                if (line_i[i-1] == '-') {
-                    i++;
-                }
-            }
-            ???????????? */ 
-            if (line_i[i] < line_i[i+2]) {
-                for (char j = line_i[i]; j <= line_i[i+2]; ++j) {
-                    line_o[count_o] = j;
-                    count_o++;
-                }
-                i += 2;
-            } else if (line_i[i] > line_i[i+2]) {
-                for (char j = line_i[i]; j >= line_i[i+2]; --j) {
-                    line_o[count_o] = j;
-                    count_o++;
-                }
-                i += 2;
-            } else {
-                line_o[count_o] = line_i[i];
-                count_o++;
-                i += 2;
-            }
-        } else {
-            line_o[count_o] = line_i[i];
-            count_o++;
-        }
-    }
-
-    line_o[count_o] = line_i[count_i-2];
-    line_o[count_o+1] = line_i[count_i-1];
-    line_o[count_o+2] = '\0';
+    fill(line_i, line_o);
     printf("%s\n", line_o);
+    
     return 0;
 }
