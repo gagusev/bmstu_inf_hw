@@ -1,0 +1,24 @@
+digraph {
+label="Colours"
+Red -> Yellow
+Red -> Red
+Orange -> Violet
+Orange -> Blue
+Yellow -> Green
+Yellow -> Orange
+Green -> Magenta
+Green -> Indigo
+Blue -> Indigo
+Blue -> Blue
+Blue -> Orange
+Blue -> Red
+Indigo -> Magenta
+Indigo -> Violet
+Indigo -> Green
+Indigo -> Yellow
+Violet -> Violet
+Violet -> Green
+Violet -> Red
+Magenta -> Indigo
+Magenta -> Yellow
+}
