@@ -3,8 +3,8 @@
 #include <string.h>
 
 #define MAX_VERTICES 32
+#define MAX_EDGES 64
 #define MAX_GRAPH_NAME 64
-#define MAX_VERTEX_NAME 16
 #define MAX_NUM_TO_STR 8
 #define MAX_CMD_STRING 64
 
@@ -16,9 +16,9 @@ void throwHelp()
     puts("[HELP / -h / -H] –– will display this message once more;\n");
     puts("FILE YOU'RE LOADING FROM MUST SATISFY FEW PROPERTIES:\n");
     puts("1. It must be plain text file (.txt), no other format is supported;");
-    puts("2. The first line must contain GRAPH NAME and NUMBER OF VERTICES separated by spaces;");
-    puts("3. The second line must contain NAME OF EACH VERTEX separated by spaces;");
-    puts("4. All the other lines are reserved for ADJACENCY MATRIX, elements separated by spaces;\n");
+    puts("2. Note that the file's name then will be used as GRAPH'S NAME;");
+    puts("3. Only Incidence matrices are accaptable as input;");
+    puts("4. All the lines must contain the same amount of [0/1] separated by spaces;\n");
     puts("THE OUTPUT IS: <GRAPH_NAME>.dot and <GRAPH_NAME>.png;\n");
 }
 
@@ -93,14 +93,14 @@ void saveGraph(struct Graph *graph, char graph_name[])
     FILE *fp;
     fp = fopen(file_name, "w");
 
-    fprintf(fp, "digraph {\nlabel=\"%s\"\n", graph_name);
+    fprintf(fp, "strict graph {\nlabel=\"%s\"\n", graph_name);
 
     for (int i = 0; i < vertexNum(graph); i++)
     {
         struct Vertex *ptr = graph->head[i];
         while (ptr != NULL)
         {
-            fprintf(fp, "%s -> %s\n", ptr->name, graph->head[ptr->dest]->name);
+            fprintf(fp, "%s -- %s\n", ptr->name, graph->head[ptr->dest]->name);
             ptr = ptr->next;
         }
     }
@@ -110,7 +110,7 @@ void saveGraph(struct Graph *graph, char graph_name[])
     fclose(fp);
 }
 
-struct Graph *loadGraph(char file_name[], char graph_name_out[])
+struct Graph *loadGraph(char file_name[])
 {
     FILE *fp;
     fp = fopen(file_name, "r");
@@ -123,88 +123,76 @@ struct Graph *loadGraph(char file_name[], char graph_name_out[])
     size_t len = 0;
     ssize_t read;
 
-    getline(&line, &len, fp);
-    int ptr, counter = 0;
-    char graph_name[MAX_GRAPH_NAME];
-    while (1)
+    int matrix[MAX_VERTICES][MAX_EDGES];
+    for (int i = 0; i < MAX_VERTICES; ++i)
     {
-        char sym = line[ptr++];
-        if (sym == ' ')
+        for (int j = 0; j < MAX_EDGES; ++j)
         {
-            break;
-        }
-        else
-        {
-            graph_name[counter++] = sym;
+            matrix[i][j] = -1;
         }
     }
-    graph_name[counter] = '\0';
-    strcpy(graph_name_out, graph_name);
-    counter = 0;
 
-    char vertex_num_str[MAX_NUM_TO_STR];
-    while (1)
+    int row_counter = 0;
+    int num_counter = 0;
+    while ((read = getline(&line, &len, fp)) != -1)
     {
-        char sym = line[ptr++];
-        if (sym == '\n')
+        num_counter = 0;
+        for (int i = 0; i < read; ++i)
         {
-            break;
-        }
-        else
-        {
-            vertex_num_str[counter++] = sym;
-        }
-    }
-    vertex_num_str[counter] = '\0';
-    int vertex_num = atoi(vertex_num_str);
-
-    printf("\nGRAPH NAME: %s, NUMBER OF VERTICES: %d;\n", graph_name, vertex_num);
-
-    getline(&line, &len, fp);
-    char vetrex_names[MAX_VERTICES][MAX_VERTEX_NAME];
-
-    ptr = 0;
-    for (int i = 0; i < vertex_num; ++i)
-    {
-        counter = 0;
-        char vertex_name[MAX_VERTEX_NAME];
-        while (1)
-        {
-            char sym = line[ptr++];
-            if (sym == ' ' || sym == '\n')
+            if (line[i] != ' ' && line[i] != '\0')
             {
-                break;
-            }
-            else
-            {
-                vertex_name[counter++] = sym;
+                if (line[i] == '0')
+                {
+                    matrix[num_counter][row_counter] = 0;
+                }
+                else
+                {
+                    matrix[num_counter][row_counter] = 1;
+                }
+                num_counter++;
             }
         }
-        vertex_name[counter] = '\0';
-        strcpy(vetrex_names[i], vertex_name);
+        row_counter++;
     }
-
-    printf("NAMES OF VERTICES: ");
-    for (int i = 0; i < vertex_num; ++i)
-    {
-        printf("%s ", vetrex_names[i]);
-    }
-    puts(";");
 
     struct Graph *graph = createGraph();
 
-    for (int i = 0; i < vertex_num; ++i)
+    for (int i = 0; i < num_counter - 1; ++i)
     {
-        getline(&line, &len, fp);
-        int ptr = atoi(strtok(line, " "));
-        for (int j = 0; j < vertex_num; ++j)
+        int a_vertex = -1;
+        int b_vertex = -1;
+        for (int j = 0; j < row_counter; ++j)
         {
-            if (ptr != 0)
+            if (matrix[i][j] == 1)
             {
-                struct Edge edge = {i, j};
-                appendGraph(graph, edge, vetrex_names[i]);
+                if (a_vertex == -1)
+                {
+                    a_vertex = j;
+                }
+                else
+                {
+                    b_vertex = j;
+                }
             }
-            ptr = atoi(strtok(NULL, " "));
+        }
+        if (a_vertex != -1)
+        {
+            char str_a_vertex[MAX_NUM_TO_STR];
+            sprintf(str_a_vertex, "%d", a_vertex);
+            if (b_vertex != -1)
+            {
+                char str_b_vertex[MAX_NUM_TO_STR];
+                sprintf(str_b_vertex, "%d", b_vertex);
+                struct Edge edge_i = {a_vertex, b_vertex};
+                appendGraph(graph, edge_i, str_a_vertex);
+                struct Edge edge_j = {b_vertex, a_vertex};
+                appendGraph(graph, edge_j, str_b_vertex);
+            }
+            else
+            {
+                struct Edge edge = {a_vertex, a_vertex};
+                appendGraph(graph, edge, str_a_vertex);
+            }
         }
     }
 
@@ -229,6 +217,36 @@ void visualizeGraph(char graph_name[])
     }
 }
 
+void path_to_name(char path[], char out_name[])
+{
+    int len = strlen(path);
+    int start_copy = 0;
+    char name[MAX_GRAPH_NAME];
+    int name_len = 0;
+    for (int i = len - 1; i >= 0; --i)
+    {
+        if (path[i] == '/')
+        {
+            break;
+        }
+        if (start_copy)
+        {
+            name[name_len++] = path[i];
+        }
+        if (path[i] == '.')
+        {
+            start_copy = 1;
+        }
+    }
+    char reverse_name[MAX_GRAPH_NAME];
+    for (int i = 0; i < name_len; ++i)
+    {
+        reverse_name[i] = name[name_len - i - 1];
+    }
+    reverse_name[name_len - 1] = '\0';
+    strcpy(out_name, reverse_name);
+}
+
 int main(int argc, char *argv[])
 {
 
@@ -243,7 +261,8 @@ int main(int argc, char *argv[])
     else if (argc == 3 && (!strcmp(argv[1], "LOAD") || !strcmp(argv[1], "-l") || !strcmp(argv[1], "-L")))
     {
         char graph_name[MAX_GRAPH_NAME];
-        struct Graph *graph = loadGraph(argv[2], graph_name);
+        path_to_name(argv[2], graph_name);
+        struct Graph *graph = loadGraph(argv[2]);
         printGraph(graph);
         saveGraph(graph, graph_name);
         visualizeGraph(graph_name);
