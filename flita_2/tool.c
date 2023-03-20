@@ -22,26 +22,26 @@ void throwHelp()
     puts("THE OUTPUT IS: <GRAPH_NAME>.dot and <GRAPH_NAME>.png;\n");
 }
 
-struct Graph
+typedef struct
 {
-    struct Vertex *head[MAX_VERTICES];
-};
+    struct vertex_t *head[MAX_VERTICES];
+} Graph;
 
-struct Vertex
+typedef struct vertex_t
 {
     int dest;
     char name[16];
-    struct Vertex *next;
-};
+    struct vertex_t *next;
+} Vertex;
 
-struct Edge
+typedef struct
 {
     int src, dest;
-};
+} Edge;
 
-struct Graph *createGraph()
+Graph *createGraph()
 {
-    struct Graph *graph = (struct Graph *)malloc(sizeof(struct Graph));
+    Graph *graph = (Graph *)malloc(sizeof(Graph));
     for (int i = 0; i < MAX_VERTICES; ++i)
     {
         graph->head[i] = NULL;
@@ -49,31 +49,28 @@ struct Graph *createGraph()
     return graph;
 }
 
-void appendGraph(struct Graph *graph, struct Edge edge, char name[])
+void appendGraph(Graph *graph, Edge edge, char name[])
 {
-    struct Vertex *newVertex = (struct Vertex *)malloc(sizeof(struct Vertex));
+    Vertex *newVertex = (Vertex *)malloc(sizeof(Vertex));
     newVertex->dest = edge.dest;
     newVertex->next = graph->head[edge.src];
     strcpy(newVertex->name, name);
     graph->head[edge.src] = newVertex;
 }
 
-int vertexNum(struct Graph *graph)
+int vertexNum(Graph *graph)
 {
     int i = 0;
-    while (graph->head[i] != NULL)
-    {
-        i++;
-    }
+    for (; graph->head[i] != NULL; ++i) {}
     return i;
 }
 
-void printGraph(struct Graph *graph)
+void printGraph(Graph *graph)
 {
     puts("\nGRAPH PREVIEW:\n");
     for (int i = 0; i < vertexNum(graph); i++)
     {
-        struct Vertex *ptr = graph->head[i];
+        Vertex *ptr = graph->head[i];
 
         printf("%s[%d] —> { ", ptr->name, i);
         while (ptr != NULL)
@@ -81,11 +78,11 @@ void printGraph(struct Graph *graph)
             printf("%s[%d] ", graph->head[ptr->dest]->name, ptr->dest);
             ptr = ptr->next;
         }
-        printf("}\n");
+        puts("}");
     }
 }
 
-void saveGraph(struct Graph *graph, char graph_name[])
+void saveGraph(Graph *graph, char graph_name[])
 {
     char file_name[MAX_GRAPH_NAME];
     sprintf(file_name, "%s.dot", graph_name);
@@ -97,7 +94,7 @@ void saveGraph(struct Graph *graph, char graph_name[])
 
     for (int i = 0; i < vertexNum(graph); i++)
     {
-        struct Vertex *ptr = graph->head[i];
+        Vertex *ptr = graph->head[i];
         while (ptr != NULL)
         {
             fprintf(fp, "%s -- %s\n", ptr->name, graph->head[ptr->dest]->name);
@@ -110,7 +107,7 @@ void saveGraph(struct Graph *graph, char graph_name[])
     fclose(fp);
 }
 
-struct Graph *loadGraph(char file_name[])
+Graph *loadGraph(char file_name[])
 {
     FILE *fp;
     fp = fopen(file_name, "r");
@@ -155,7 +152,7 @@ struct Graph *loadGraph(char file_name[])
         row_counter++;
     }
 
-    struct Graph *graph = createGraph();
+    Graph *graph = createGraph();
 
     for (int i = 0; i < num_counter - 1; ++i)
     {
@@ -183,14 +180,14 @@ struct Graph *loadGraph(char file_name[])
             {
                 char str_b_vertex[MAX_NUM_TO_STR];
                 sprintf(str_b_vertex, "%d", b_vertex);
-                struct Edge edge_i = {a_vertex, b_vertex};
+                Edge edge_i = {a_vertex, b_vertex};
                 appendGraph(graph, edge_i, str_a_vertex);
-                struct Edge edge_j = {b_vertex, a_vertex};
+                Edge edge_j = {b_vertex, a_vertex};
                 appendGraph(graph, edge_j, str_b_vertex);
             }
             else
             {
-                struct Edge edge = {a_vertex, a_vertex};
+                Edge edge = {a_vertex, a_vertex};
                 appendGraph(graph, edge, str_a_vertex);
             }
         }
@@ -262,7 +259,7 @@ int main(int argc, char *argv[])
     {
         char graph_name[MAX_GRAPH_NAME];
         path_to_name(argv[2], graph_name);
-        struct Graph *graph = loadGraph(argv[2]);
+        Graph *graph = loadGraph(argv[2]);
         printGraph(graph);
         saveGraph(graph, graph_name);
         visualizeGraph(graph_name);
