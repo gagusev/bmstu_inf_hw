@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/typespeed_iu.dir/src/game_logic.c.o CMakeFiles/typespeed_iu.dir/src/main.c.o CMakeFiles/typespeed_iu.dir/src/timer.c.o -o typespeed_iu  -lcurses 
