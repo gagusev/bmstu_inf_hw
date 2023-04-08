@@ -1,7 +1,7 @@
 #include <ncurses.h>
-#include <time.h>
 #include <stdlib.h>
 #include "timer.h"
+#include "text_loader.h"
 
 typedef struct
 {

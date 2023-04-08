@@ -16,7 +16,13 @@ cur_w *game_init(void) {
     box(new->input, 0, 0);
     box(new->status, 0, 0);
 
-    mvwprintw(new->input, 1, 1, "Additionally, curses provides some special characters for character-based graphics. You can draw tables, horizontal or vertical lines, etc. You can find all avaliable characters in the header file ncurses.h. Try looking for macros beginning with ACS_ in this file.");
+    char check[128][MAX_WIDTH];	
+    text_to_lines("./sample_texts/lorem.txt", width-2, check);
+    for (int i = 1; i < height-4; ++i) {
+        mvwprintw(new->input, i, 1, "%s", check[i-1]);
+        wrefresh(new->input);
+    }
+
     wrefresh(new->input);
     mvwprintw(new->status, 1, 1, "Time: 00:00");
     wrefresh(new->status);
@@ -26,14 +32,14 @@ cur_w *game_init(void) {
 
 void game_loop(cur_w *wins) {
 
-    clock_t t = countdown_init(10);
+    clock_t t = countdown_init(100);
 
     while(1) {
         
         countdown *c = countdown_update(t);
         mvwprintw(wins->status, 1, 1, "Time: %02d:%02d", c->mins, c->secs);
         wrefresh(wins->status);
-        if (c->mils == 0) {
+        if (c->mils < 100) {
             endwin();
             exit(0);
         }

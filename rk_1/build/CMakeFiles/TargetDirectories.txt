@@ -1,0 +1,3 @@
+/home/grigus/bmstu_inf_hw/rk_1/build/CMakeFiles/rebuild_cache.dir
+/home/grigus/bmstu_inf_hw/rk_1/build/CMakeFiles/edit_cache.dir
+/home/grigus/bmstu_inf_hw/rk_1/build/CMakeFiles/typespeed_iu.dir

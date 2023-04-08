@@ -57,7 +57,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/grigus/bmstu_inf_hw/rk_1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/grigus/bmstu_inf_hw/rk_1
+CMAKE_BINARY_DIR = /home/grigus/bmstu_inf_hw/rk_1/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -81,14 +81,14 @@ clean: CMakeFiles/typespeed_iu.dir/clean
 CMakeFiles/typespeed_iu.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/typespeed_iu.dir/build.make CMakeFiles/typespeed_iu.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/typespeed_iu.dir/build.make CMakeFiles/typespeed_iu.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/grigus/bmstu_inf_hw/rk_1/CMakeFiles --progress-num=1,2,3,4,5 "Built target typespeed_iu"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/grigus/bmstu_inf_hw/rk_1/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target typespeed_iu"
 .PHONY : CMakeFiles/typespeed_iu.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/typespeed_iu.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/grigus/bmstu_inf_hw/rk_1/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/grigus/bmstu_inf_hw/rk_1/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/typespeed_iu.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/grigus/bmstu_inf_hw/rk_1/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/grigus/bmstu_inf_hw/rk_1/build/CMakeFiles 0
 .PHONY : CMakeFiles/typespeed_iu.dir/rule
 
 # Convenience name for target.
