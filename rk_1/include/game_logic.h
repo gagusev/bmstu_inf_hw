@@ -9,5 +9,4 @@ typedef struct
     WINDOW *status;
 } cur_w;
 
-cur_w *game_init(void);
-void game_loop(cur_w *wins);
+void game_init(void);
