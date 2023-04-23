@@ -1,4 +1,5 @@
 #include <ncurses.h>
+#include <curses.h>
 #include <stdlib.h>
 #include "timer.h"
 #include "text_loader.h"

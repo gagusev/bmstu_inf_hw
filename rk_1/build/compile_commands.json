@@ -1,22 +1,22 @@
 [
 {
-  "directory": "/home/grigus/bmstu_inf_hw/rk_1/build",
-  "command": "/usr/bin/gcc  -I/home/grigus/bmstu_inf_hw/rk_1/src -I/home/grigus/bmstu_inf_hw/rk_1/include -g -o CMakeFiles/typespeed_iu.dir/src/game_logic.c.o -c /home/grigus/bmstu_inf_hw/rk_1/src/game_logic.c",
-  "file": "/home/grigus/bmstu_inf_hw/rk_1/src/game_logic.c"
+  "directory": "/Users/grigorygusev/bmstu_inf_hw/rk_1/build",
+  "command": "/usr/bin/clang  -I/Users/grigorygusev/bmstu_inf_hw/rk_1/src -I/Users/grigorygusev/bmstu_inf_hw/rk_1/include -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -o CMakeFiles/typespeed_iu.dir/src/game_logic.c.o -c /Users/grigorygusev/bmstu_inf_hw/rk_1/src/game_logic.c",
+  "file": "/Users/grigorygusev/bmstu_inf_hw/rk_1/src/game_logic.c"
 },
 {
-  "directory": "/home/grigus/bmstu_inf_hw/rk_1/build",
-  "command": "/usr/bin/gcc  -I/home/grigus/bmstu_inf_hw/rk_1/src -I/home/grigus/bmstu_inf_hw/rk_1/include -g -o CMakeFiles/typespeed_iu.dir/src/main.c.o -c /home/grigus/bmstu_inf_hw/rk_1/src/main.c",
-  "file": "/home/grigus/bmstu_inf_hw/rk_1/src/main.c"
+  "directory": "/Users/grigorygusev/bmstu_inf_hw/rk_1/build",
+  "command": "/usr/bin/clang  -I/Users/grigorygusev/bmstu_inf_hw/rk_1/src -I/Users/grigorygusev/bmstu_inf_hw/rk_1/include -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -o CMakeFiles/typespeed_iu.dir/src/main.c.o -c /Users/grigorygusev/bmstu_inf_hw/rk_1/src/main.c",
+  "file": "/Users/grigorygusev/bmstu_inf_hw/rk_1/src/main.c"
 },
 {
-  "directory": "/home/grigus/bmstu_inf_hw/rk_1/build",
-  "command": "/usr/bin/gcc  -I/home/grigus/bmstu_inf_hw/rk_1/src -I/home/grigus/bmstu_inf_hw/rk_1/include -g -o CMakeFiles/typespeed_iu.dir/src/text_loader.c.o -c /home/grigus/bmstu_inf_hw/rk_1/src/text_loader.c",
-  "file": "/home/grigus/bmstu_inf_hw/rk_1/src/text_loader.c"
+  "directory": "/Users/grigorygusev/bmstu_inf_hw/rk_1/build",
+  "command": "/usr/bin/clang  -I/Users/grigorygusev/bmstu_inf_hw/rk_1/src -I/Users/grigorygusev/bmstu_inf_hw/rk_1/include -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -o CMakeFiles/typespeed_iu.dir/src/text_loader.c.o -c /Users/grigorygusev/bmstu_inf_hw/rk_1/src/text_loader.c",
+  "file": "/Users/grigorygusev/bmstu_inf_hw/rk_1/src/text_loader.c"
 },
 {
-  "directory": "/home/grigus/bmstu_inf_hw/rk_1/build",
-  "command": "/usr/bin/gcc  -I/home/grigus/bmstu_inf_hw/rk_1/src -I/home/grigus/bmstu_inf_hw/rk_1/include -g -o CMakeFiles/typespeed_iu.dir/src/timer.c.o -c /home/grigus/bmstu_inf_hw/rk_1/src/timer.c",
-  "file": "/home/grigus/bmstu_inf_hw/rk_1/src/timer.c"
+  "directory": "/Users/grigorygusev/bmstu_inf_hw/rk_1/build",
+  "command": "/usr/bin/clang  -I/Users/grigorygusev/bmstu_inf_hw/rk_1/src -I/Users/grigorygusev/bmstu_inf_hw/rk_1/include -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -o CMakeFiles/typespeed_iu.dir/src/timer.c.o -c /Users/grigorygusev/bmstu_inf_hw/rk_1/src/timer.c",
+  "file": "/Users/grigorygusev/bmstu_inf_hw/rk_1/src/timer.c"
 }
 ]

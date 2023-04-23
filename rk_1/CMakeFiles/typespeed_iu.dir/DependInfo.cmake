@@ -8,10 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/grigus/bmstu_inf_hw/rk_1/src/game_logic.c" "CMakeFiles/typespeed_iu.dir/src/game_logic.c.o" "gcc" "CMakeFiles/typespeed_iu.dir/src/game_logic.c.o.d"
-  "/home/grigus/bmstu_inf_hw/rk_1/src/main.c" "CMakeFiles/typespeed_iu.dir/src/main.c.o" "gcc" "CMakeFiles/typespeed_iu.dir/src/main.c.o.d"
-  "/home/grigus/bmstu_inf_hw/rk_1/src/text_loader.c" "CMakeFiles/typespeed_iu.dir/src/text_loader.c.o" "gcc" "CMakeFiles/typespeed_iu.dir/src/text_loader.c.o.d"
-  "/home/grigus/bmstu_inf_hw/rk_1/src/timer.c" "CMakeFiles/typespeed_iu.dir/src/timer.c.o" "gcc" "CMakeFiles/typespeed_iu.dir/src/timer.c.o.d"
+  "/Users/grigorygusev/bmstu_inf_hw/rk_1/src/game_logic.c" "CMakeFiles/typespeed_iu.dir/src/game_logic.c.o" "gcc" "CMakeFiles/typespeed_iu.dir/src/game_logic.c.o.d"
+  "/Users/grigorygusev/bmstu_inf_hw/rk_1/src/main.c" "CMakeFiles/typespeed_iu.dir/src/main.c.o" "gcc" "CMakeFiles/typespeed_iu.dir/src/main.c.o.d"
+  "/Users/grigorygusev/bmstu_inf_hw/rk_1/src/text_loader.c" "CMakeFiles/typespeed_iu.dir/src/text_loader.c.o" "gcc" "CMakeFiles/typespeed_iu.dir/src/text_loader.c.o.d"
+  "/Users/grigorygusev/bmstu_inf_hw/rk_1/src/timer.c" "CMakeFiles/typespeed_iu.dir/src/timer.c.o" "gcc" "CMakeFiles/typespeed_iu.dir/src/timer.c.o.d"
   )
 
 # Targets to which this target links.

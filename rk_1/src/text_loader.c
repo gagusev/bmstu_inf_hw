@@ -1,15 +1,7 @@
 #include "text_loader.h"
 
 int text_to_lines(const char path_to_file[], int max_x, char out[128][MAX_WIDTH]) {
-    /*
-    if (!strcmp(path_to_file, "easy")) {
-        return text_to_lines("../sample_texts/lorem.txt", max_x);
-    } else if (!strcmp(path_to_file, "medium")) {
-        return text_to_lines("../sample_texts/lorem.txt", max_x);
-    } else if (!strcmp(path_to_file, "hard")) {
-        return text_to_lines("../sample_texts/lorem.txt", max_x);
-    } else {
-        */
+    
         FILE *fp;
         fp = fopen(path_to_file, "r");
         if (fp == NULL)
